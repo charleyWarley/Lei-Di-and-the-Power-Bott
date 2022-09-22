@@ -1,0 +1,90 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://scripts/text_bar.gd" type="Script" id=1]
+[ext_resource path="res://scenes/areas/midtheme.tres" type="Theme" id=2]
+[ext_resource path="res://resources/small_text.tres" type="Theme" id=3]
+[ext_resource path="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/message.wav" type="AudioStream" id=4]
+[ext_resource path="res://resources/text_sounds.tres" type="Resource" id=5]
+
+[node name="text_box" type="Node2D"]
+show_behind_parent = true
+position = Vector2( -1, 223 )
+script = ExtResource( 1 )
+sounds = ExtResource( 5 )
+speaker_label = NodePath("text_bar/top_text_bar/VBoxContainer/speaker")
+text_label = NodePath("text_bar/top_text_bar/VBoxContainer/speaker/text")
+sfx = NodePath("sfx")
+timer = NodePath("Timer")
+proceed = NodePath("text_bar/top_text_bar/proceed")
+
+[node name="text_bar" type="ColorRect" parent="."]
+show_behind_parent = true
+margin_left = -1.0
+margin_top = 1.0
+margin_right = 277.0
+margin_bottom = 59.9999
+color = Color( 0.843137, 0.85098, 0.788235, 1 )
+
+[node name="top_text_bar" type="ColorRect" parent="text_bar"]
+margin_left = 3.0
+margin_top = -2.0
+margin_right = 264.0
+margin_bottom = 3.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="proceed" type="ColorRect" parent="text_bar/top_text_bar"]
+show_behind_parent = true
+margin_left = 180.0
+margin_top = 40.0
+margin_right = 249.0
+margin_bottom = 51.0
+color = Color( 0.627451, 0.627451, 0.627451, 1 )
+
+[node name="enter" type="Label" parent="text_bar/top_text_bar/proceed"]
+margin_left = -6.0
+margin_right = 38.0
+margin_bottom = 14.0
+theme = ExtResource( 2 )
+text = "press ENTER"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="text_bar/top_text_bar"]
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+margin_left = 6.0
+margin_top = 4.50003
+margin_right = 6.0
+margin_bottom = 40.5
+
+[node name="speaker" type="Label" parent="text_bar/top_text_bar/VBoxContainer"]
+margin_right = 261.0
+margin_bottom = 14.0
+theme = ExtResource( 2 )
+text = "NAME"
+
+[node name="ColorRect" type="ColorRect" parent="text_bar/top_text_bar/VBoxContainer/speaker"]
+show_behind_parent = true
+margin_left = -4.0
+margin_top = 6.0
+margin_right = 34.0
+margin_bottom = 17.0
+color = Color( 0.678431, 0.784314, 0.784314, 1 )
+
+[node name="text" type="Label" parent="text_bar/top_text_bar/VBoxContainer/speaker"]
+margin_left = 5.0
+margin_top = 18.0
+margin_right = 251.0
+margin_bottom = 29.0
+theme = ExtResource( 3 )
+text = "Collect as much scrap metal as you can carry."
+percent_visible = -0.0277778
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

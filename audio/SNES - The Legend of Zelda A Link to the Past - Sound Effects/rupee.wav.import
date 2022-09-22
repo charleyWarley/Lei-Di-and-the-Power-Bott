@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/rupee.wav-f87147a474f995f07761c819f3b2108c.sample"
+
+[deps]
+
+source_file="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/rupee.wav"
+dest_files=[ "res://.import/rupee.wav-f87147a474f995f07761c819f3b2108c.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

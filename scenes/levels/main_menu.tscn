@@ -1,0 +1,324 @@
+[gd_scene load_steps=24 format=2]
+
+[ext_resource path="res://scenes/levels/topside_grass.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scripts/main_menu.gd" type="Script" id=2]
+[ext_resource path="res://scenes/areas/focus_area.tscn" type="PackedScene" id=3]
+[ext_resource path="res://scenes/areas/midtheme.tres" type="Theme" id=4]
+[ext_resource path="res://scenes/objects/lever.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/areas/water.tscn" type="PackedScene" id=6]
+[ext_resource path="res://visuals/sprite_sheets/32-bit-sprite-sheet-ENVIRONMENT.png" type="Texture" id=7]
+[ext_resource path="res://scenes/objects/lever_newGame.gd" type="Script" id=8]
+[ext_resource path="res://scenes/objects/lever_loadGame.gd" type="Script" id=9]
+[ext_resource path="res://scenes/objects/lever_music.gd" type="Script" id=10]
+[ext_resource path="res://scenes/objects/crate.tscn" type="PackedScene" id=11]
+[ext_resource path="res://visuals/sprite_sheets/music_icon.png" type="Texture" id=12]
+[ext_resource path="res://visuals/sprite_sheets/save-load_icon.png" type="Texture" id=13]
+[ext_resource path="res://visuals/sprite_sheets/gear_ico.png" type="Texture" id=14]
+[ext_resource path="res://scenes/objects/lever_options.gd" type="Script" id=15]
+[ext_resource path="res://scenes/objects/lever_extras.gd" type="Script" id=16]
+[ext_resource path="res://visuals/sprite_sheets/play_icon.png" type="Texture" id=17]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "flip"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.3, 0.7, 0.8 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 1, 0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 19.5, 4.75 )
+
+[sub_resource type="Animation" id=6]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "idle"
+length = 0.8
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 8, 2 )
+
+[node name="main_menu" type="Node"]
+script = ExtResource( 2 )
+start_position = NodePath("start_position")
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+margin_left = -185.0
+margin_top = -133.0
+margin_right = 416.0
+margin_bottom = 293.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_top = -1.0
+margin_right = 250.0
+margin_bottom = 193.0
+color = Color( 0.611765, 0.72549, 0.745098, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+margin_left = 3.0
+margin_top = 97.0
+margin_right = 43.0
+margin_bottom = 137.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="ColorRect"]
+margin_left = 218.0
+margin_top = 131.0
+margin_right = 258.0
+margin_bottom = 171.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="ColorRect"]
+margin_left = 219.0
+margin_top = 65.0
+margin_right = 259.0
+margin_bottom = 105.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="ColorRect"]
+margin_left = -3.0
+margin_top = 39.0
+margin_right = 37.0
+margin_bottom = 79.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="lever_loadGame" parent="." instance=ExtResource( 5 )]
+position = Vector2( 201, 81 )
+script = ExtResource( 9 )
+
+[node name="Sprite" parent="lever_loadGame" index="0"]
+flip_h = false
+
+[node name="AnimationPlayer" parent="lever_loadGame" index="3"]
+anims/RESET = SubResource( 2 )
+anims/flip = SubResource( 3 )
+
+[node name="loadGame" type="Label" parent="lever_loadGame"]
+visible = false
+margin_left = -55.0
+margin_top = -23.0
+margin_right = 17.0
+margin_bottom = -7.0
+theme = ExtResource( 4 )
+text = "load game"
+
+[node name="Sprite" type="Sprite" parent="lever_loadGame/loadGame"]
+show_behind_parent = true
+position = Vector2( 33, 9 )
+scale = Vector2( 1.09028, 1.1875 )
+texture = ExtResource( 7 )
+region_enabled = true
+region_rect = Rect2( 0, 96, 72, 16 )
+
+[node name="Sprite3" type="Sprite" parent="lever_loadGame"]
+position = Vector2( 31, 7 )
+texture = ExtResource( 13 )
+hframes = 2
+frame = 1
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 16 )
+
+[node name="lever_extras" parent="lever_loadGame" instance=ExtResource( 5 )]
+position = Vector2( -141, 86 )
+rotation = 1.5708
+script = ExtResource( 16 )
+
+[node name="water" parent="lever_loadGame/lever_extras" instance=ExtResource( 6 )]
+position = Vector2( -26, -54 )
+rotation = -1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
+position = Vector2( -81.5, 48 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
+position = Vector2( -53, -12 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
+position = Vector2( -37, 3 )
+shape = SubResource( 5 )
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
+position = Vector2( -18, 32 )
+shape = SubResource( 5 )
+
+[node name="ColorRect" type="ColorRect" parent="lever_loadGame/lever_extras/water"]
+margin_left = -101.0
+margin_top = 45.0
+margin_right = -61.0
+margin_bottom = 68.0
+color = Color( 0.27451, 0.454902, 0.435294, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="lever_loadGame/lever_extras/water"]
+margin_left = -69.0
+margin_top = -37.0
+margin_right = -33.0
+margin_bottom = -18.0
+rect_rotation = 52.3752
+color = Color( 0.27451, 0.454902, 0.435294, 1 )
+
+[node name="trickles" type="Node2D" parent="lever_loadGame/lever_extras"]
+
+[node name="ColorRect2" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
+margin_left = -28.0
+margin_top = 29.0
+margin_right = -24.0
+margin_bottom = 88.0
+rect_rotation = -90.0
+color = Color( 0.27451, 0.454902, 0.435294, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
+margin_left = -22.0
+margin_top = -35.0
+margin_right = -21.0
+margin_bottom = 2.0
+rect_rotation = -90.0
+color = Color( 0.27451, 0.454902, 0.435294, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
+margin_left = -28.0
+margin_top = 23.0
+margin_right = -22.0
+margin_bottom = 82.0
+rect_rotation = -90.0
+color = Color( 0.27451, 0.454902, 0.435294, 1 )
+
+[node name="Tween" type="Tween" parent="lever_loadGame/lever_extras"]
+
+[node name="lever_newGame" parent="." instance=ExtResource( 5 )]
+position = Vector2( 55, 113 )
+script = ExtResource( 8 )
+
+[node name="newGame" type="Label" parent="lever_newGame"]
+visible = false
+margin_left = -4.0
+margin_top = -26.0
+margin_right = 68.0
+margin_bottom = -10.0
+theme = ExtResource( 4 )
+text = "new game"
+
+[node name="Sprite" type="Sprite" parent="lever_newGame/newGame"]
+show_behind_parent = true
+position = Vector2( 25, 9 )
+scale = Vector2( 1, 1.375 )
+texture = ExtResource( 7 )
+region_enabled = true
+region_rect = Rect2( 0, 96, 72, 16 )
+
+[node name="Sprite2" type="Sprite" parent="lever_newGame"]
+position = Vector2( -30, 7 )
+texture = ExtResource( 17 )
+hframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 16 )
+
+[node name="lever_options" parent="." instance=ExtResource( 5 )]
+position = Vector2( 26, 24 )
+rotation = -1.5708
+script = ExtResource( 15 )
+
+[node name="Sprite2" type="Sprite" parent="lever_options"]
+position = Vector2( -32, -1 )
+texture = ExtResource( 14 )
+hframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 16 )
+
+[node name="AnimationPlayer2" type="AnimationPlayer" parent="lever_options"]
+autoplay = "idle"
+anims/RESET = SubResource( 6 )
+anims/idle = SubResource( 7 )
+
+[node name="lever_music" parent="." instance=ExtResource( 5 )]
+position = Vector2( 201, 159 )
+script = ExtResource( 10 )
+
+[node name="Sprite" parent="lever_music" index="0"]
+flip_h = false
+
+[node name="icon" type="Sprite" parent="lever_music"]
+position = Vector2( 31, -6 )
+texture = ExtResource( 12 )
+hframes = 2
+region_enabled = true
+region_rect = Rect2( 0, 0, 32, 16 )
+
+[node name="TileMap" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, 0 )
+tile_data = PoolIntArray( -65536, 0, 0, -65535, 0, 1, -65534, 0, 1, -65533, 0, 1, -65532, 0, 1, -65531, 0, 1, -65530, 0, 1, -65529, 0, 1, -65528, 0, 1, -65527, 0, 1, -65526, 0, 1, -65525, 0, 1, -65524, 0, 1, -65523, 0, 1, -65522, 0, 1, -65521, 0, 2, 65535, 0, 0, 0, 0, 327684, 1, 0, 131073, 2, 0, 131073, 3, 0, 131073, 4, 0, 131073, 5, 0, 131073, 6, 0, 131073, 7, 0, 131073, 8, 0, 131073, 9, 0, 131073, 10, 0, 131073, 11, 0, 131073, 12, 0, 131073, 13, 0, 131073, 14, 0, 5, 15, 0, 65540, 16, 0, 2, 131071, 0, 65536, 65536, 0, 65538, 65550, 0, 65536, 65551, 0, 65537, 65552, 0, 65538, 196607, 0, 65536, 131072, 0, 65543, 131073, 0, 196609, 131074, 0, 131077, 131086, 0, 65536, 131087, 0, 65537, 131088, 0, 65538, 262143, 0, 65536, 196608, 0, 65538, 196610, 0, 327680, 196611, 0, 1, 196612, 0, 2, 196622, 0, 65536, 196623, 0, 65537, 196624, 0, 65538, 327679, 0, 65536, 262144, 0, 65540, 262145, 0, 1, 262146, 0, 65541, 262147, 0, 65537, 262148, 0, 65540, 262149, 0, 1, 262150, 0, 1, 262151, 0, 262146, 262152, 0, 196610, 262157, 0, 131076, 262158, 0, 327683, 262159, 0, 5, 262160, 0, 65538, 393215, 0, 65536, 327680, 0, 65537, 327681, 0, 65537, 327682, 0, 4, 327683, 0, 131073, 327684, 0, 131073, 327685, 0, 131073, 327686, 0, 131073, 327687, 0, 131074, 327693, 0, 65539, 327695, 0, 65536, 327696, 0, 65538, 458751, 0, 65536, 393216, 0, 4, 393217, 0, 131073, 393218, 0, 262145, 393226, 0, 3, 393229, 0, 327680, 393230, 0, 1, 393231, 0, 65541, 393232, 0, 65538, 524287, 0, 65536, 458752, 0, 65538, 458754, 0, 65539, 458761, 0, 0, 458762, 0, 327681, 458764, 0, 196608, 458765, 0, 65542, 458766, 0, 65537, 458767, 0, 65537, 458768, 0, 65538, 589823, 0, 65536, 524288, 0, 65543, 524289, 0, 196609, 524290, 0, 196614, 524291, 0, 262147, 524292, 0, 2, 524295, 0, 0, 524296, 0, 262146, 524297, 0, 327683, 524298, 0, 131074, 524301, 0, 262144, 524302, 0, 131073, 524303, 0, 5, 524304, 0, 65538, 655359, 0, 65536, 589824, 0, 65538, 589827, 0, 131072, 589828, 0, 327682, 589829, 0, 196610, 589831, 0, 131072, 589832, 0, 131074, 589835, 0, 196611, 589837, 0, 65539, 589839, 0, 65536, 589840, 0, 65538, 720895, 0, 65536, 655360, 0, 65538, 655373, 0, 327680, 655374, 0, 1, 655375, 0, 65541, 655376, 0, 65538, 786431, 0, 65536, 720896, 0, 65538, 720899, 0, 0, 720900, 0, 1, 720901, 0, 1, 720902, 0, 1, 720903, 0, 1, 720904, 0, 1, 720905, 0, 1, 720906, 0, 1, 720907, 0, 1, 720908, 0, 1, 720909, 0, 65541, 720910, 0, 65537, 720911, 0, 4, 720912, 0, 131074, 851967, 0, 131072, 786432, 0, 262148, 786433, 0, 1, 786434, 0, 1, 786435, 0, 65541, 786436, 0, 4, 786437, 0, 131073, 786438, 0, 131073, 786439, 0, 131073, 786440, 0, 131073, 786441, 0, 131073, 786442, 0, 131073, 786443, 0, 131073, 786444, 0, 131073, 786445, 0, 131073, 786446, 0, 131073, 786447, 0, 131074, 851968, 0, 131072, 851969, 0, 131073, 851970, 0, 131073, 851971, 0, 131073, 851972, 0, 131074 )
+
+[node name="start_position" type="Position2D" parent="."]
+position = Vector2( 130, 116 )
+
+[node name="focus_area" parent="." instance=ExtResource( 3 )]
+position = Vector2( 130, 116 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="focus_area"]
+position = Vector2( 0, 12 )
+shape = SubResource( 4 )
+
+[node name="crate" parent="." instance=ExtResource( 11 )]
+position = Vector2( 89, 55 )
+
+[connection signal="tween_completed" from="lever_loadGame/lever_extras/Tween" to="lever_loadGame/lever_extras" method="_on_Tween_tween_completed"]
+
+[editable path="lever_loadGame"]
+[editable path="lever_music"]

@@ -1,0 +1,47 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://visuals/sprite_sheets/32-bit-sprite-sheet-ENVIRONMENT.png" type="Texture" id=1]
+[ext_resource path="res://scripts/crate.gd" type="Script" id=2]
+[ext_resource path="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/break.wav" type="AudioStream" id=3]
+
+[sub_resource type="PhysicsMaterial" id=2]
+friction = 0.25
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 5, 8 )
+
+[node name="crate" type="RigidBody2D"]
+collision_layer = 19
+collision_mask = 19
+mass = 4.0
+physics_material_override = SubResource( 2 )
+gravity_scale = 2.0
+contacts_reported = 1
+can_sleep = false
+script = ExtResource( 2 )
+collision = NodePath("CollisionShape2D")
+sfx = NodePath("sfx")
+hp = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 3
+region_enabled = true
+region_rect = Rect2( 0, 192, 48, 16 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.2
+
+[node name="sfx" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 1.19209e-07, -2.38419e-07 )
+scale = Vector2( 0.7, 0.8 )
+
+[connection signal="finished" from="sfx" to="." method="_on_sfx_finished"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]

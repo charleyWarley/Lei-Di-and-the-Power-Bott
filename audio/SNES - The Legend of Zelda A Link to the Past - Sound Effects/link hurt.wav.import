@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/link hurt.wav-1503410e48f599d5512259523caf0882.sample"
+
+[deps]
+
+source_file="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/link hurt.wav"
+dest_files=[ "res://.import/link hurt.wav-1503410e48f599d5512259523caf0882.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

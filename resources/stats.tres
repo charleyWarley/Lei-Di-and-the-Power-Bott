@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://scripts/stats.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+pushForce = 30.0
+speed = 3
+jumpPower = -260
+hp = 5
+max_hp = 5

@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=4 format=2]
+
+[ext_resource path="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/message finish.wav" type="AudioStream" id=1]
+[ext_resource path="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/message.wav" type="AudioStream" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Resource
+
+export(AudioStream) onready var speaking
+export(AudioStream) onready var yelling
+export(AudioStream) onready var singing
+export(AudioStream) onready var crying
+export(AudioStream) onready var laughing
+export(AudioStream) onready var end
+"
+
+[resource]
+script = SubResource( 1 )
+speaking = ExtResource( 2 )
+end = ExtResource( 1 )

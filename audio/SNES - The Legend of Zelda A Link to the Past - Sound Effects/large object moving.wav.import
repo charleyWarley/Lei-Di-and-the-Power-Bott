@@ -1,0 +1,23 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/large object moving.wav-2a122e220cdd2c997a5b0ba948103c40.sample"
+
+[deps]
+
+source_file="res://audio/SNES - The Legend of Zelda A Link to the Past - Sound Effects/large object moving.wav"
+dest_files=[ "res://.import/large object moving.wav-2a122e220cdd2c997a5b0ba948103c40.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
