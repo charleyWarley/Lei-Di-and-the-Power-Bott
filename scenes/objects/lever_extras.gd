@@ -9,7 +9,7 @@ var invis : Color = Color(1,1,1,0)
 var canContinue := false
 
 
-func _on_AnimationPlayer_animation_finished(anim_name):
+func _on_AnimationPlayer_animation_finished(_anim_name):
 	if trickles.get_modulate() == vis: 
 		canContinue = true
 		water_valve(waters)
@@ -19,7 +19,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 		water_valve(trickles)
 
 
-func _on_Tween_tween_completed(object, key):
+func _on_Tween_tween_completed(object, _key):
 	if !canContinue: 
 		print("can't continue")
 		return

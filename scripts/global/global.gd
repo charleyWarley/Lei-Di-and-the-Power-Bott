@@ -4,6 +4,7 @@ signal world_changed(new_world)
 signal player_loaded
 signal camera_focused
 signal camera_unfocused
+signal player_exited_screen
 
 var current_camera setget set_current_camera
 var player : Actor = null

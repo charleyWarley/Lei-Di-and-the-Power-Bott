@@ -1,5 +1,6 @@
 {
-"energy_cores": "0",
-"scrap_metal": "1",
-"spawn_point": null
+"energy_cores": "1",
+"scrap_metal": "11",
+"spawn_point": Object(Position2D,"_import_path":NodePath(""),"pause_mode":0,"physics_interpolation_mode":0,"unique_name_in_owner":false,"process_priority":0,"visible":true,"modulate":Color( 1, 1, 1, 1 ),"self_modulate":Color( 1, 1, 1, 1 ),"show_behind_parent":false,"light_mask":1,"material":null,"use_parent_material":false,"position":Vector2( 18, -1 ),"rotation":0.0,"scale":Vector2( 1, 1 ),"z_index":0,"z_as_relative":true,"script":null)
+
 }

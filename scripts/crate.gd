@@ -17,3 +17,4 @@ func _on_VisibilityNotifier2D_screen_entered():
 func _on_VisibilityNotifier2D_screen_exited():
 	set_visible(false)
 
+

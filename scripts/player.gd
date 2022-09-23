@@ -3,7 +3,7 @@ export(PackedScene) onready var hitSpark
 var timePressedJump : float = 0.0
 var timeLeftGround : float = 0.0
 var sparks : int = 0
-var canTurn := true
+var canRun := true
 
 func _input(_event) -> void:
 	check_actions()
@@ -48,7 +48,7 @@ func set_velocity(isGrounded: bool, delta: float) -> void:
 			states.move_state = states.move_states.TURNING
 			drag = float(stats.drags.TURN)
 		else:
-			if Input.is_action_pressed("run") and canTurn: states.move_state = states.move_states.RUNNING
+			if Input.is_action_pressed("run") and canRun: states.move_state = states.move_states.RUNNING
 			else: states.move_state = states.move_states.WALKING
 			drag = float(stats.drags.BASIC)
 	else: 
@@ -140,19 +140,18 @@ func check_collisions() -> void:
 		elif collider.is_in_group("moveable"): collider.apply_central_impulse(-collision.normal * stats.pushForce)
 
 
-func check_flip(h, v) -> void:
-	if canTurn:
-		if h == 0: return
-		if !isFacingRight and h == 1:
-			pickupSpot.turn_right(ray)
-			isFacingRight = true
-			sprite.set_flip_h(false)
-		elif isFacingRight and h == -1:
-			pickupSpot.turn_left(ray)
-			isFacingRight = false
-			sprite.set_flip_h(true)
-	else:
-		ray.set_cast_to(Vector2(0, -11))
+func check_flip(h, _v) -> void:
+	if h == 0: return
+	if !isFacingRight and h == 1:
+		pickupSpot.turn_right(ray)
+		isFacingRight = true
+		sprite.set_flip_h(false)
+	elif isFacingRight and h == -1:
+		pickupSpot.turn_left(ray)
+		isFacingRight = false
+		sprite.set_flip_h(true)
+	if !canRun:
+		ray.set_enabled(false)
 		pickupSpot.lift()
 
 
@@ -165,29 +164,37 @@ func check_actions() -> void:
 		if Input.is_action_just_pressed("interact"):
 			stats.speed = stats.speeds.SLOW
 			grab()
-		if Input.is_action_just_pressed("move_down"):
-			ungrab("set_down")
 	if Input.is_action_just_pressed("change_ability"): 
 		Abilities.change_current_ability()
 	elif Input.is_action_just_released("use_ability"): 
 		deactivate_ability()
-	if Input.is_action_pressed("run") and canTurn: 
-		stats.speed = stats.speeds.RUN
+	if Input.is_action_pressed("run") and canRun: stats.speed = stats.speeds.RUN
 	elif Input.is_action_just_released("run"): 
 		states.move_state = states.move_states.WALKING
 		stats.speed = stats.speeds.WALK
 	if Input.is_action_just_released("interact"): 
-		ungrab("throw")
+		ungrab("set_down")
 		states.move_state = states.move_states.WALKING
 		stats.speed = stats.speeds.WALK
 
 
 func hit() -> void:
+	if ray.get_collider() != null:
+		var collider = ray.get_collider()
+		if collider is RigidBody2D: 
+			var dir : int
+			if isFacingRight: dir = 1
+			else: dir = -1
+			collider.apply_central_impulse(Vector2(stats.throwForce/4 * dir, 0))
+			collider.take_damage()
+			return
 	play_sound(sounds.effort0)
 	spark()
 
 
 func use_ability() -> void: 
+	if items_in_hand != []:
+		ungrab("throw")
 	print("ability activated")
 	return
 
@@ -209,30 +216,28 @@ func grab() -> void:
 
 
 func ungrab(followup) -> void:
-	Abilities.isGrabbing = false
 	stats.speed = stats.speeds.WALK
 	if items_in_hand == []: return
 	var item = items_in_hand[0]
 	var dir : int 
 	if isFacingRight: dir = 1
 	else: dir = -1
-	
-	
 	item.get_parent().remove_child(item)
 	get_parent().add_child(item)
+	item.enable()
 	match followup: 
 		"throw": 
-			item.position.x = position.x + (16 * dir)
-			item.position.y = position.y - 16
-			item.apply_central_impulse(Vector2(2000, 0)) 
+			item.position.y = position.y - 8
+			item.position.x = position.x + (8 * dir)
+			item.apply_central_impulse(Vector2(stats.throwForce * dir, 0))
+			item.take_damage()
 		"set_down": 
 			item.position.x = position.x + (16 * dir)
-			item.position.y = position.y - 16
-	item.set_mode(RigidBody2D.MODE_RIGID)
-	item.collision.set_disabled(false)
-	item.continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+			item.position.y = position.y - 8
 	items_in_hand.remove(0)
-	canTurn = true
+	canRun = true
+	Abilities.isGrabbing = false
+	ray.set_enabled(true)
 	if isFacingRight: pickupSpot.turn_right(ray)
 	else: pickupSpot.turn_left(ray)
 
@@ -244,13 +249,12 @@ func pickup_item(item) -> void:
 	items_in_hand.append(item)
 	item.get_parent().remove_child(item)
 	if item is RigidBody2D: 
-		item.set_mode(RigidBody2D.MODE_STATIC)
-		item.collision.set_disabled(true)
-		item.continuous_cd = RigidBody2D.CCD_MODE_DISABLED
-		item.rotation = 0
+		item.disable()
 	pickupSpot.add_child(item)
-	item.position = pickupSpot.position
-	canTurn = false
+	canRun = false
+	pickupSpot.lift()
+	item.set_deferred("position", pickupSpot.position)
+	
 	print("holding ", item.name)
 
 
@@ -266,4 +270,5 @@ func spark() -> void:
 
 
 
-
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	Global.emit_signal("player_exited_screen")

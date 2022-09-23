@@ -6,11 +6,24 @@ export(NodePath) onready var sfx = get_node(sfx) as AudioStreamPlayer
 export(PackedScene) onready var contents
 export(int) var hp
 
-func _ready():
+func _ready() -> void:
 	add_to_group("breakable")
 
 
-func take_damage():
+func enable() -> void:
+	set_mode(RigidBody2D.MODE_RIGID)
+	collision.set_disabled(false)
+	continuous_cd = RigidBody2D.CCD_MODE_CAST_SHAPE
+
+
+func disable() -> void:
+	set_mode(RigidBody2D.MODE_STATIC)
+	collision.set_disabled(true)
+	continuous_cd = RigidBody2D.CCD_MODE_DISABLED
+	rotation = 0
+
+
+func take_damage() -> void:
 	if sfx.is_playing(): return
 	sfx.play()
 	hp -= 1
@@ -19,7 +32,7 @@ func take_damage():
 		$Sprite.set_frame(2)
 
 
-func destroy():
+func destroy() -> void:
 	if contents != null:
 		var newItem = contents.instance()
 		newItem.position = position
@@ -28,6 +41,6 @@ func destroy():
 	call_deferred("queue_free")
 
 
-func _on_sfx_finished():
+func _on_sfx_finished() -> void:
 	if hp <= 0: 
 		destroy()

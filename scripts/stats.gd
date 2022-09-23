@@ -2,7 +2,7 @@ extends Resource
 
 enum drags {
 	TURN = 15
-	AIR = 30
+	AIR = 25
 	BASIC = 45
 	STOP = 70
 }
@@ -20,6 +20,7 @@ const JUMP_BUFFER := 0.16
 const LAND_BUFFER := 0.2
 
 export(float) onready var pushForce
+export(float) onready var throwForce
 export(int) onready var speed
 export(int) onready var jumpPower
 export(int) onready var hp

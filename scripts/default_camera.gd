@@ -15,9 +15,10 @@ func _input(_event) -> void:
 	if Input.is_action_just_released("zoom"): zoom = Vector2(1,1)
 
 
-func _ready():
+func _ready() -> void:
 	var _focus_connect = Global.connect("camera_focused", self, "focus")
 	var _unfocus_connect = Global.connect("camera_unfocused", self, "unfocus")
+	var _player_screen_connect = Global.connect("player_exited_screen", self, "recenter")
 	set_process(true)
 	make_current()
 
@@ -32,7 +33,10 @@ func _process(delta) -> void:
 	position.x = lerp(position.x, targetPosition.x, speed.x * delta)
 	position.y = lerp(position.y, targetPosition.y, speed.y * delta)
 
-func set_target():
+func recenter() -> void:
+	position = target.position
+
+func set_target() -> void:
 	isTargetSet = true
 	speed = Vector2(0.5, 0.5)
 

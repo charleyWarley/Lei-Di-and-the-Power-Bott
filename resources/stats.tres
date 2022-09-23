@@ -5,6 +5,7 @@
 [resource]
 script = ExtResource( 1 )
 pushForce = 30.0
+throwForce = 1000.0
 speed = 3
 jumpPower = -260
 hp = 5
