@@ -7,3 +7,11 @@ current = true
 script = ExtResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="frequency" type="Timer" parent="Tween"]
+
+[node name="duration" type="Timer" parent="Tween"]
+one_shot = true
+
+[connection signal="timeout" from="Tween/frequency" to="." method="_on_frequency_timeout"]
+[connection signal="timeout" from="Tween/duration" to="." method="_on_duration_timeout"]

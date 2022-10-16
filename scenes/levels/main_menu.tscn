@@ -5,18 +5,19 @@
 [ext_resource path="res://scenes/areas/focus_area.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/areas/midtheme.tres" type="Theme" id=4]
 [ext_resource path="res://scenes/objects/lever.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/areas/water.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/objects/hat.tscn" type="PackedScene" id=6]
 [ext_resource path="res://visuals/sprite_sheets/32-bit-sprite-sheet-ENVIRONMENT.png" type="Texture" id=7]
 [ext_resource path="res://scenes/objects/lever_newGame.gd" type="Script" id=8]
 [ext_resource path="res://scenes/objects/lever_loadGame.gd" type="Script" id=9]
 [ext_resource path="res://scenes/objects/lever_music.gd" type="Script" id=10]
 [ext_resource path="res://scenes/objects/crate.tscn" type="PackedScene" id=11]
-[ext_resource path="res://visuals/sprite_sheets/music_icon.png" type="Texture" id=12]
-[ext_resource path="res://visuals/sprite_sheets/save-load_icon.png" type="Texture" id=13]
-[ext_resource path="res://visuals/sprite_sheets/gear_ico.png" type="Texture" id=14]
+[ext_resource path="res://visuals/music_icon.png" type="Texture" id=12]
+[ext_resource path="res://visuals/save-load_icon.png" type="Texture" id=13]
+[ext_resource path="res://visuals/gear_ico.png" type="Texture" id=14]
 [ext_resource path="res://scenes/objects/lever_options.gd" type="Script" id=15]
 [ext_resource path="res://scenes/objects/lever_extras.gd" type="Script" id=16]
 [ext_resource path="res://visuals/sprite_sheets/play_icon.png" type="Texture" id=17]
+[ext_resource path="res://scenes/objects/backpack.tscn" type="PackedScene" id=18]
 
 [sub_resource type="Animation" id=2]
 length = 0.001
@@ -48,9 +49,6 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 1, 0 ]
 }
-
-[sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 19.5, 4.75 )
 
 [sub_resource type="Animation" id=6]
 length = 0.001
@@ -179,67 +177,6 @@ position = Vector2( -141, 86 )
 rotation = 1.5708
 script = ExtResource( 16 )
 
-[node name="water" parent="lever_loadGame/lever_extras" instance=ExtResource( 6 )]
-position = Vector2( -26, -54 )
-rotation = -1.5708
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
-position = Vector2( -81.5, 48 )
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
-position = Vector2( -53, -12 )
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D4" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
-position = Vector2( -37, 3 )
-shape = SubResource( 5 )
-
-[node name="CollisionShape2D3" type="CollisionShape2D" parent="lever_loadGame/lever_extras/water"]
-position = Vector2( -18, 32 )
-shape = SubResource( 5 )
-
-[node name="ColorRect" type="ColorRect" parent="lever_loadGame/lever_extras/water"]
-margin_left = -101.0
-margin_top = 45.0
-margin_right = -61.0
-margin_bottom = 68.0
-color = Color( 0.27451, 0.454902, 0.435294, 1 )
-
-[node name="ColorRect4" type="ColorRect" parent="lever_loadGame/lever_extras/water"]
-margin_left = -69.0
-margin_top = -37.0
-margin_right = -33.0
-margin_bottom = -18.0
-rect_rotation = 52.3752
-color = Color( 0.27451, 0.454902, 0.435294, 1 )
-
-[node name="trickles" type="Node2D" parent="lever_loadGame/lever_extras"]
-
-[node name="ColorRect2" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
-margin_left = -28.0
-margin_top = 29.0
-margin_right = -24.0
-margin_bottom = 88.0
-rect_rotation = -90.0
-color = Color( 0.27451, 0.454902, 0.435294, 1 )
-
-[node name="ColorRect5" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
-margin_left = -22.0
-margin_top = -35.0
-margin_right = -21.0
-margin_bottom = 2.0
-rect_rotation = -90.0
-color = Color( 0.27451, 0.454902, 0.435294, 1 )
-
-[node name="ColorRect3" type="ColorRect" parent="lever_loadGame/lever_extras/trickles"]
-margin_left = -28.0
-margin_top = 23.0
-margin_right = -22.0
-margin_bottom = 82.0
-rect_rotation = -90.0
-color = Color( 0.27451, 0.454902, 0.435294, 1 )
-
 [node name="Tween" type="Tween" parent="lever_loadGame/lever_extras"]
 
 [node name="lever_newGame" parent="." instance=ExtResource( 5 )]
@@ -317,6 +254,12 @@ shape = SubResource( 4 )
 
 [node name="crate" parent="." instance=ExtResource( 11 )]
 position = Vector2( 156, 165 )
+
+[node name="hat" parent="." instance=ExtResource( 6 )]
+position = Vector2( 152, 90 )
+
+[node name="backpack" parent="." instance=ExtResource( 18 )]
+position = Vector2( 117, 165 )
 
 [connection signal="tween_completed" from="lever_loadGame/lever_extras/Tween" to="lever_loadGame/lever_extras" method="_on_Tween_tween_completed"]
 

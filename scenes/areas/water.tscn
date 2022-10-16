@@ -1,9 +1,26 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scripts/water.gd" type="Script" id=1]
+[ext_resource path="res://scripts/shaders/water_shader.tres" type="Shader" id=2]
+[ext_resource path="res://visuals/blue-pool-water-texture_my1myi7i_thumbnail-1080_01.png" type="Texture" id=3]
+[ext_resource path="res://scenes/areas/water.gd" type="Script" id=4]
 
-[node name="water" type="Area2D"]
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/tiled_factor = Vector2( 3, 3 )
+shader_param/aspect_ratio = 0.866787
+shader_param/offset_scale = Vector2( 0.25, 0.8 )
+shader_param/time_scale = Vector2( 0.1, 1 )
+shader_param/amplitude = Vector2( 0.55, 0.15 )
+
+[node name="water" type="Sprite"]
+material = SubResource( 1 )
+position = Vector2( 129.125, 114.625 )
+scale = Vector2( 0.257176, 0.222917 )
+texture = ExtResource( 3 )
+script = ExtResource( 4 )
+
+[node name="Area2D" type="Area2D" parent="."]
 script = ExtResource( 1 )
 
-[connection signal="body_entered" from="." to="." method="_on_water_body_entered"]
-[connection signal="body_exited" from="." to="." method="_on_water_body_exited"]
+[connection signal="item_rect_changed" from="." to="." method="calculate_aspect_ratio"]

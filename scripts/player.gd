@@ -1,6 +1,7 @@
 extends Actor
 export(PackedScene) onready var hitSpark
 var timePressedJump : float = 0.0
+var timePressedHit : float = 0.0
 var timeLeftGround : float = 0.0
 var sparks : int = 0
 var canRun := true
@@ -17,45 +18,46 @@ func _process(_delta) -> void:
 
 func _physics_process(delta) -> void:
 	var isGrounded = is_on_floor()
-	set_velocity(isGrounded, delta)
+	var drag : float = set_drag(isGrounded)
+	set_velocity(isGrounded, drag, delta)
 	wasGrounded = isGrounded
 
 
-func check_direction() -> Vector2:
-	direction = Vector2()
-	if Input.is_action_pressed("move_left"): direction.x = -1
-	if Input.is_action_pressed("move_right"): direction.x = 1
-	if Input.is_action_pressed("move_up"): direction.y = -1
-	if Input.is_action_pressed("move_down"): direction.y = 1
-	direction = direction.normalized()
-	return direction
-
-
-func set_velocity(isGrounded: bool, delta: float) -> void:
-	var drag : float
+func set_drag(isGrounded: bool) -> float:
+	var drag : float = 0.0
 	if isGrounded:
 		states.ground_state = states.ground_states.GROUNDED
-		var horizontal_move : float = Input.get_axis("move_left", "move_right")
-		var vertical_move : float = Input.get_axis("move_up", "move_down")
+		#var direction.x : float = Input.get_axis("move_left", "move_right")
+		#var direction.y : float = Input.get_axis("move_up", "move_down")
+		check_flip(direction.x, direction.y)
 		
-		check_flip(horizontal_move, vertical_move)
-		
-		
-		if abs(horizontal_move) <= 0.0: 
+		if abs(direction.x) == 0.0: 
 			states.move_state = states.move_states.IDLE
 			drag = float(stats.drags.STOP)
-		elif sign(horizontal_move) != sign(velocity.x) and velocity.x != 0: 
+		elif sign(direction.x) != sign(velocity.x) and velocity.x != 0: 
 			states.move_state = states.move_states.TURNING
 			drag = float(stats.drags.TURN)
 		else:
-			if Input.is_action_pressed("run") and canRun: states.move_state = states.move_states.RUNNING
+			if Input.is_action_pressed("run") and canRun: 
+				states.move_state = states.move_states.RUNNING
 			else: states.move_state = states.move_states.WALKING
 			drag = float(stats.drags.BASIC)
 	else: 
 		states.move_state = states.move_states.AIR
 		drag = float(stats.drags.AIR)
 	drag *= 0.01
-	#direction.y = 0
+	return drag
+	
+	
+func check_direction() -> Vector2:
+	direction = Vector2()
+	direction.x = Input.get_axis("move_left", "move_right")
+	direction.y = Input.get_axis("move_up", "move_down")
+	direction = direction.normalized()
+	return direction
+
+
+func set_velocity(isGrounded: bool, drag: float, delta: float) -> void:
 	velocity.x += direction.x * stats.speed
 	velocity = Vector2(check_x(drag, delta), check_y(isGrounded))
 	if abs(velocity.x) > stats.speeds.MAX: 
@@ -90,7 +92,6 @@ func check_y(isGrounded: bool) -> float:
 			jump()
 	else: 
 		velocity.y -= stats.GRAV
-		#if velocity.y <= -190: velocity.y = -190
 	if states.ground_state != states.ground_states.GROUNDED and velocity.y > 0: 
 		isFalling = true
 	var timeDifference = get_cur_time() - timePressedJump
@@ -98,7 +99,7 @@ func check_y(isGrounded: bool) -> float:
 		isFalling = false
 		if velocity.y > 0: 
 			states.ground_state = states.ground_states.AIRBORNE
-			velocity.y = 0
+			velocity.y = 0.1
 	elif !wasGrounded and states.ground_state == states.ground_states.GROUNDED and timeDifference < stats.JUMP_BUFFER:
 		jump()
 	return velocity.y
@@ -111,6 +112,7 @@ func get_target_velocity() -> Vector2:
 
 
 func jump() -> void:
+	sfx.volume_db = 0
 	play_sound(sounds.jump0)
 	velocity.y = stats.jumpPower
 
@@ -126,7 +128,8 @@ func check_collisions() -> void:
 			if isFalling and get_cur_time() - timeLeftGround > stats.LAND_BUFFER:
 				if states.ground_state == states.ground_states.AIRBORNE: states.ground_state = states.ground_states.GROUNDED
 				isFalling = false
-				walk_sound() 
+				#Global.emit_signal("screen_shook", 0.2, 11, 1)
+				walk_sound()
 				if collider.is_in_group("enemies"): 
 					bounceForce.y = -120
 					play_sound(sounds.effort1)
@@ -270,5 +273,9 @@ func spark() -> void:
 
 
 
-func _on_VisibilityNotifier2D_viewport_exited(viewport):
+func _on_VisibilityNotifier2D_viewport_exited(_viewport):
 	Global.emit_signal("player_exited_screen")
+
+
+func _on_sfx_finished():
+	sfx.volume_db = 0

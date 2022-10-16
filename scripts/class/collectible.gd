@@ -19,5 +19,6 @@ func _process(delta):
 
 func collect():
 	set_process(true)
+	Global.emit_signal("screen_shook", 0.2, 15, 2)
 	area.queue_free()
 	sfx.play()

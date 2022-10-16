@@ -6,6 +6,7 @@ export(NodePath) onready var sfx = get_node(sfx) as AudioStreamPlayer
 export(PackedScene) onready var contents
 export(int) var hp
 
+
 func _ready() -> void:
 	add_to_group("breakable")
 
@@ -24,7 +25,9 @@ func disable() -> void:
 
 
 func take_damage() -> void:
+	Global.emit_signal("screen_shook", 0.2, 15, 5)
 	if sfx.is_playing(): return
+	sfx.volume_db = 0
 	sfx.play()
 	hp -= 1
 	$Sprite.set_frame(1)
@@ -42,5 +45,9 @@ func destroy() -> void:
 
 
 func _on_sfx_finished() -> void:
+	sfx.volume_db = 0
 	if hp <= 0: 
 		destroy()
+
+func _on_crate_body_entered(_body):
+	pass #figure out how to find the collision normal to get the dot product and aplify the sound based on the throw

@@ -53,6 +53,7 @@ func set_walk(mode: String) -> void:
 func animation_check() -> void:
 	match states.move_state:
 		states.move_states.AIR:
+			if isFalling: state_machine.travel("fall")
 			return
 		states.move_states.WALKING: 
 			if animate_jump(): return

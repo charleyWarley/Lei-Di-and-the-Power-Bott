@@ -42,34 +42,34 @@ margin_bottom = 40.0
 margin_left = -7.0
 margin_top = -7.0
 margin_right = 257.0
-margin_bottom = 30.0
+margin_bottom = 20.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UIetc/top_black_bar"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -94.5
-margin_right = 94.5
-margin_bottom = 40.0
+margin_left = -94.0
+margin_right = 95.0
+margin_bottom = 27.0
 custom_constants/separation = 75
 
 [node name="scrap" type="HBoxContainer" parent="UIetc/top_black_bar/HBoxContainer"]
 margin_right = 57.0
-margin_bottom = 40.0
+margin_bottom = 27.0
 custom_constants/separation = 9
 
 [node name="title" type="Label" parent="UIetc/top_black_bar/HBoxContainer/scrap"]
-margin_top = 12.0
+margin_top = 5.0
 margin_right = 40.0
-margin_bottom = 28.0
+margin_bottom = 21.0
 theme = ExtResource( 10 )
 text = "scrap"
 
 [node name="value" type="Label" parent="UIetc/top_black_bar/HBoxContainer/scrap"]
 margin_left = 49.0
-margin_top = 12.0
+margin_top = 5.0
 margin_right = 57.0
-margin_bottom = 28.0
+margin_bottom = 21.0
 theme = ExtResource( 10 )
 text = "0"
 script = ExtResource( 4 )
@@ -77,21 +77,21 @@ script = ExtResource( 4 )
 [node name="cores" type="HBoxContainer" parent="UIetc/top_black_bar/HBoxContainer"]
 margin_left = 132.0
 margin_right = 189.0
-margin_bottom = 40.0
+margin_bottom = 27.0
 custom_constants/separation = 9
 
 [node name="title" type="Label" parent="UIetc/top_black_bar/HBoxContainer/cores"]
-margin_top = 12.0
+margin_top = 5.0
 margin_right = 40.0
-margin_bottom = 28.0
+margin_bottom = 21.0
 theme = ExtResource( 10 )
 text = "cores"
 
 [node name="value" type="Label" parent="UIetc/top_black_bar/HBoxContainer/cores"]
 margin_left = 49.0
-margin_top = 12.0
+margin_top = 5.0
 margin_right = 57.0
-margin_bottom = 28.0
+margin_bottom = 21.0
 theme = ExtResource( 10 )
 text = "0"
 script = ExtResource( 6 )
@@ -110,3 +110,4 @@ position = Vector2( 4, 16 )
 stream = ExtResource( 8 )
 
 [node name="cRT_Filter" parent="." instance=ExtResource( 9 )]
+visible = false

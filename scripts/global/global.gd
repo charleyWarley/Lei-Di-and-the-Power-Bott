@@ -5,13 +5,16 @@ signal player_loaded
 signal camera_focused
 signal camera_unfocused
 signal player_exited_screen
+signal screen_shook(duration, frequency, intensity)
 
 var current_camera setget set_current_camera
 var player : Actor = null
 var scrap : int = 0
 var cores : int = 0
+var max_scrap : int = 20
+var max_cores : int = 10
 var is_cameraSet := false
-var text_speed : float = 0.1
+var text_speed : float = 0.01
 var spawn_point
 var temp_path : String = "res://scripts/saves/temp_save"
 var music

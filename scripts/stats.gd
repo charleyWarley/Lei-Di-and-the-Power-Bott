@@ -1,10 +1,10 @@
 extends Resource
 
 enum drags {
-	TURN = 15
-	AIR = 25
-	BASIC = 45
-	STOP = 70
+	TURN = 25
+	AIR = 28
+	BASIC = 36
+	STOP = 55
 }
 
 enum speeds {
@@ -16,7 +16,7 @@ enum speeds {
 }
 
 const GRAV : int = -13
-const JUMP_BUFFER := 0.16
+const JUMP_BUFFER := 0.08
 const LAND_BUFFER := 0.2
 
 export(float) onready var pushForce

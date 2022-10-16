@@ -54,6 +54,10 @@ config/name="Lei-Di and the Power Bott"
 run/main_scene="res://scenes/UIetc/Control.tscn"
 config/icon="res://visuals/icon.png"
 
+[audio]
+
+default_bus_layout="res://audio/default_bus_layout.tres"
+
 [autoload]
 
 Global="*res://scripts/global/global.gd"

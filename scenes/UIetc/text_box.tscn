@@ -60,7 +60,7 @@ margin_bottom = 40.5
 margin_right = 261.0
 margin_bottom = 14.0
 theme = ExtResource( 2 )
-text = "NAME"
+text = "SPEAKER"
 
 [node name="ColorRect" type="ColorRect" parent="text_bar/top_text_bar/VBoxContainer/speaker"]
 show_behind_parent = true
@@ -76,8 +76,7 @@ margin_top = 18.0
 margin_right = 251.0
 margin_bottom = 29.0
 theme = ExtResource( 3 )
-text = "Collect as much scrap metal as you can carry."
-percent_visible = -0.0277778
+text = "This is a sample text."
 
 [node name="Tween" type="Tween" parent="."]
 

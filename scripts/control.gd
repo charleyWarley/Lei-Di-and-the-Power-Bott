@@ -38,7 +38,8 @@ func _ready():
 	Global.music = music
 	music.play()
 	Global.crt = crt
-	
+
+
 func set_world(location):
 	match location:
 		"level_one": 
@@ -64,12 +65,17 @@ func load_level(newLevel):
 		world = level
 		world.add_child(Global.player)
 		viewport.add_child(level)
+	if Global.current_camera: Global.current_camera.set_deferred("position", world.start_position.position)
+	
 
 
 func set_camera():
 	camera.set_zoom(Vector2(1,1))
 	camera.target = Global.player
 	Global.set_current_camera(camera)
+	Global.current_camera.set_deferred("position", world.start_position.position)
+	
+	
 
 
 func pause() -> void:

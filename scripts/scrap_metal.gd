@@ -6,8 +6,13 @@ var scrap = 1
 
 func _on_Area2D_body_entered(body):
 	if body.name != "player": return
-	collect()
-	Global.scrap += scrap
+	if Global.scrap < Global.max_scrap:
+		collect()
+		Global.scrap += scrap
+		if Global.scrap > Global.max_scrap: Global.scrap = Global.max_scrap
+	else:
+		print("scrap full")
+
 
 func _ready():
 	var flip1 = Global.probability(2)
