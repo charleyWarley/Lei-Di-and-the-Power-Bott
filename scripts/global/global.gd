@@ -7,6 +7,12 @@ signal camera_unfocused
 signal player_exited_screen
 signal screen_shook(duration, frequency, intensity)
 
+
+enum player_characters {
+	LEI_DI,
+	ALIZEA
+}
+
 var current_camera setget set_current_camera
 var player : Actor = null
 var scrap : int = 0
@@ -19,6 +25,8 @@ var spawn_point
 var temp_path : String = "res://scripts/saves/temp_save"
 var music
 var crt
+
+var active_player_character = player_characters.LEI_DI
 
 func mute() -> void:
 	if !music.is_playing():
@@ -77,5 +85,3 @@ func load_previous_save():
 	var data : String = file.get_as_text()
 	file.close()
 	return str2var(data)
-
-

@@ -488,7 +488,7 @@ margin_left = -482.0
 margin_top = -59.0
 margin_right = 2856.0
 margin_bottom = 569.0
-color = Color( 0.35, 0.308933, 0.273, 1 )
+color = Color( 0.16, 0.14208, 0.1264, 1 )
 
 [node name="TileMap" parent="background/midlevel" instance=ExtResource( 1 )]
 position = Vector2( 709, -234 )

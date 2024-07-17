@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=2]
+[gd_scene load_steps=67 format=2]
 
 [ext_resource path="res://scripts/player.gd" type="Script" id=1]
 [ext_resource path="res://visuals/sprite_sheets/player0.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://resources/states.tres" type="Resource" id=5]
 [ext_resource path="res://resources/sounds.tres" type="Resource" id=6]
 [ext_resource path="res://scripts/pickup_spot.gd" type="Script" id=7]
+[ext_resource path="res://visuals/light.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 5, 6.5 )
@@ -636,6 +637,17 @@ enabled = true
 cast_to = Vector2( 18, 0 )
 collision_mask = 18
 collide_with_areas = true
+
+[node name="Light2D" type="Light2D" parent="pickup_spot"]
+position = Vector2( 8, -6 )
+texture = ExtResource( 8 )
+color = Color( 0.905882, 0.647059, 0.647059, 1 )
+mode = 3
+shadow_enabled = true
+shadow_color = Color( 0, 0, 0, 0.854902 )
+shadow_gradient_length = 5.0
+shadow_filter = 3
+shadow_filter_smooth = 17.3
 
 [node name="sfx" type="AudioStreamPlayer" parent="."]
 

@@ -17,8 +17,8 @@ var canPause = false
 
 
 func _input(event) -> void:
-	if not event is InputEventKey: return
-	if event.pressed:
+	if not event is InputEventKey and not event.is_pressed(): return
+	if event.is_pressed():
 		if event.is_action("pause"):
 			pause()
 			return
@@ -32,8 +32,8 @@ func _input(event) -> void:
 
 func _ready():
 	canPause = true
-	var _world_change_connect = Global.connect("world_changed", self, "set_world")
-	var _player_loaded_connect = Global.connect("player_loaded", self, "set_camera")
+	var _is_world_changed_connected = Global.connect("world_changed", self, "set_world")
+	var _is_player_loaded_connected = Global.connect("player_loaded", self, "set_camera")
 	set_deferred("world", start_world)
 	Global.music = music
 	music.play()

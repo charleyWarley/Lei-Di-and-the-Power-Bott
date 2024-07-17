@@ -225,7 +225,8 @@ func ungrab(followup) -> void:
 	var dir : int 
 	if isFacingRight: dir = 1
 	else: dir = -1
-	item.get_parent().remove_child(item)
+	if item != null:
+		item.get_parent().remove_child(item)
 	get_parent().add_child(item)
 	item.enable()
 	match followup: 
